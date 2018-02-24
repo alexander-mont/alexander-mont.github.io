@@ -1,36 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-          <title>Adventures in Silicon Valley</title>
-        <meta charset="utf-8" />
+  <meta charset="utf-8">
+  <!-- Site Meta Data -->
+  <title>Finding Lane Lines, Part 1</title>
+  <meta name="description" content="">
+  <meta name="author" content="Alexander Mont">
 
+  <!-- Style Meta Data -->
+  <link rel="stylesheet" href="/theme/css/notebook.css" type="text/css" />
+  <link rel="shortcut icon" href="/">
 
+  <!-- Feed Meta Data -->
+  <link href="/" type="application/atom+xml" rel="alternate" title="Adventures in Silicon Valley ATOM Feed" />
 
+  <!-- Twitter Feed -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:image" content="/">
+
+<meta name="twitter:creator" content="">
+<meta name="twitter:url" content="/finding-lane-lines-part-1.html">
+<meta name="twitter:title" content="Adventures in Silicon Valley ~ Finding Lane Lines, Part 1">
+<meta name="twitter:description" content="<h1>Pipeline Overview</h1>
+<p>Here is a simple project for finding the lane lines on a road image. The
+pipeline consisted of the following steps:</p>
+<ol>
+<li>
+<p>First, we convert the image to grayscale. This is because the
+    subsequent algorithms to be run on this, such as Canny edge
+    detection, only work on grayscale …</p></li></ol>">
+
+<!-- Facebook Meta Data -->
+<meta property="og:title" content="Adventures in Silicon Valley ~ Finding Lane Lines, Part 1" />
+<meta property="og:description" content="<h1>Pipeline Overview</h1>
+<p>Here is a simple project for finding the lane lines on a road image. The
+pipeline consisted of the following steps:</p>
+<ol>
+<li>
+<p>First, we convert the image to grayscale. This is because the
+    subsequent algorithms to be run on this, such as Canny edge
+    detection, only work on grayscale …</p></li></ol>" />
+<meta property="og:image" content="" />
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Adventures in Silicon Valley <strong></strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-        </ul></nav><!-- /#menu -->
-<section id="content" class="body">
-  <header>
-    <h2 class="entry-title">
-      <a href="/finding-lane-lines-part-1.html" rel="bookmark"
-         title="Permalink to Finding Lane Lines, Part 1">Finding Lane Lines, Part 1</a></h2>
- 
-  </header>
-  <footer class="post-info">
-    <time class="published" datetime="2016-02-24T12:46:00-08:00">
-      Wed 24 February 2016
-    </time>
-    <address class="vcard author">
-      By           <a class="url fn" href="/author/alexander-mont.html">Alexander Mont</a>
-    </address>
-  </footer><!-- /.post-info -->
-  <div class="entry-content">
-    <h1>Pipeline Overview</h1>
+<body>
+  <!-- Sidebar -->
+  <aside>
+    <p><a href=""><img id="avatar" src="/"></a></p>
+    <h1>Adventures in Silicon Valley</h1>
+    <p></p>
+    <hr>
+    <h2>Social</h2>
+    <ul class="social">
+      <li style="list-style-image : url(/theme/images/icons/you can add links in your config file.png);"><a href="#">You can add links in your config file</a></li>
+      <li style="list-style-image : url(/theme/images/icons/another social link.png);"><a href="#">Another social link</a></li>
+      <li style="list-style-image : url(/theme/images/icons/rss.png);"><a href="/" rel="alternate"><i class="icon-bookmark icon-large"></i>Atom feed</a></li>
+    </ul>
+    <h2>Categories</h2>
+    <ul class="navbar">
+      <li class="active"><a href="/category/selfdrivingcar.html">SelfDrivingCar</a></li>
+      <li><a href="/category/test.html">Test</a></li>
+    </ul> 
+  </aside>
+
+  <!-- Content -->
+  <article>
+<section id="content">
+    <article>
+        <header class="post_list">
+            <h2 class="post_title"><a href="/finding-lane-lines-part-1.html" rel="bookmark" title="Permalink to Finding Lane Lines, Part 1">Finding Lane Lines, Part 1</a></h2>
+            <span>Par </span>
+            <a href="/author/alexander-mont.html">@Alexander Mont</a>
+            <span> dans </span>
+            <span class="post_category"><a href="/category/selfdrivingcar.html" rel="bookmark" title="Permalink to SelfDrivingCar">[ SelfDrivingCar ]</a></span>
+            <span> le </span>
+            <span class="post_date">Wed 24 February 2016</span>
+            <div><span>Tags : </span>
+            </div>
+
+            <div class="entry-social">
+                <span class="twitter"><a target="_blank" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;" title="Twitter" href="https://twitter.com/share?url=/finding-lane-lines-part-1.html&text=Finding Lane Lines, Part 1&via=">Twitter</a></span>
+
+                <span class="gplus"><a target="_blank" title="Google +" href="https://plus.google.com/share?url=/finding-lane-lines-part-1.html&hl=fr" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;">Google+</a></span>
+
+                <span class="facebook"><a target="_blank" title="Facebook" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;" href="https://www.facebook.com/sharer.php?u=/finding-lane-lines-part-1.html&t=Finding Lane Lines, Part 1">Facebook</a></span>
+
+                <a  target="_blank" title="Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=</finding-lane-lines-part-1.html&title=Finding Lane Lines, Part 1" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;">Linkedin</a>
+
+                <span class="mail"><a href="mailto:?subject=Finding Lane Lines, Part 1&amp;body=Viens découvrir un article à propos de [Finding Lane Lines, Part 1] sur le site de Alexander Mont. /finding-lane-lines-part-1.html" title="Share by Email" target="_blank">Mail</a></span>
+            </div>
+        </header>
+        <div class="entry-content">
+            <h1>Pipeline Overview</h1>
 <p>Here is a simple project for finding the lane lines on a road image. The
 pipeline consisted of the following steps:</p>
 <ol>
@@ -192,13 +254,20 @@ project.</p>
     could detect other things that look like lane lines.</p>
 </li>
 </ol>
-  </div><!-- /.entry-content -->
+        </div>
+    </article>
 </section>
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
+  </article>
+
+  <!-- Footer -->
+  <footer>
+    <address id="about" class="vcard body">
+      Blog powered by <a href="http://getpelican.com/">Pelican</a>, 
+      which takes great advantage of <a href="http://python.org">Python</a>.
+      Theme <a href="https://github.com/quack1/notebook/">Notebook</a> by <a href="https://twitter.com/_Quack1">@Quack1</a>.
+    </address>
+  </footer>
+
+
 </body>
 </html>
