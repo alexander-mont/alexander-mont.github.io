@@ -1,88 +1,101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!-- Site Meta Data -->
-  <title>Adventures in Silicon Valley</title>
-  <meta name="description" content="">
-  <meta name="author" content="Alexander Mont">
+        <meta charset="utf-8" />
+        <title>Adventures in Silicon Valley</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
-  <!-- Style Meta Data -->
-  <link rel="stylesheet" href="/theme/css/notebook.css" type="text/css" />
-  <link rel="shortcut icon" href="/">
-
-  <!-- Feed Meta Data -->
-  <link href="/" type="application/atom+xml" rel="alternate" title="Adventures in Silicon Valley ATOM Feed" />
-
-  <!-- Twitter Feed -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="">
-  <meta name="twitter:image" content="/">
-
-<meta name="twitter:creator" content="">
-<meta name="twitter:url" content="">
-<meta name="twitter:title" content="Adventures in Silicon Valley">
-<meta name="twitter:description" content="">
-
-<!-- Facebook Meta Data -->
-<meta property="og:title" content="Adventures in Silicon Valley" />
-<meta property="og:description" content="" />
-<meta property="og:image" content="" />
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
 
-<body>
-  <!-- Sidebar -->
-  <aside>
-    <p><a href=""><img id="avatar" src="/"></a></p>
-    <h1>Adventures in Silicon Valley</h1>
-    <p></p>
-    <hr>
-    <h2>Social</h2>
-    <ul class="social">
-      <li style="list-style-image : url(/theme/images/icons/you can add links in your config file.png);"><a href="#">You can add links in your config file</a></li>
-      <li style="list-style-image : url(/theme/images/icons/another social link.png);"><a href="#">Another social link</a></li>
-      <li style="list-style-image : url(/theme/images/icons/rss.png);"><a href="/" rel="alternate"><i class="icon-bookmark icon-large"></i>Atom feed</a></li>
-    </ul>
-    <h2>Categories</h2>
-    <ul class="navbar">
-      <li><a href="/category/selfdrivingcar.html">SelfDrivingCar</a></li>
-      <li><a href="/category/test.html">Test</a></li>
-    </ul> 
-  </aside>
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Adventures in Silicon Valley </a></h1>
+                <nav><ul>
+                    <li><a href="/category/selfdrivingcar.html">SelfDrivingCar</a></li>
+                    <li><a href="/category/test.html">Test</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
 
-  <!-- Content -->
-  <article>
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/test-post.html">Test Post</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2018-01-30T12:00:00-08:00">
+                Published: Tue 30 January 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/alexander-mont.html">Alexander Mont</a>
+        </address>
+<p>In <a href="/category/test.html">Test</a>.</p>
+
+</footer><!-- /.post-info --><p>This is a test post.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/finding-lane-lines-part-1.html" rel="bookmark"
+                           title="Permalink to Finding Lane Lines, Part 1">Finding Lane Lines, Part 1</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-02-24T12:46:00-08:00">
+                Published: Wed 24 February 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/alexander-mont.html">Alexander Mont</a>
+        </address>
+<p>In <a href="/category/selfdrivingcar.html">SelfDrivingCar</a>.</p>
+
+</footer><!-- /.post-info -->                <h1>Pipeline Overview</h1>
+<p>Here is a simple project for finding the lane lines on a road image. The
+pipeline consisted of the following steps:</p>
 <ol>
-	<li class="post_list"><p class="post_entry">
-		<h2 class="post_title"><a href="/test-post.html" rel="bookmark" title="Permalink to Test Post">Test Post</a></h2>
-		<a href="/author/alexander-mont.html">@Alexander Mont</a>
-		<span> dans </span>
-		<span class="post_category"><a href="/category/test.html" rel="bookmark" title="Permalink to Test">[ Test ]</a></span>
-		<span> le </span>
-		<span class="post_date">Tue 30 January 2018</span>
-	</li>
-	<li class="post_list"><p class="post_entry">
-		<h2 class="post_title"><a href="/finding-lane-lines-part-1.html" rel="bookmark" title="Permalink to Finding Lane Lines, Part 1">Finding Lane Lines, Part 1</a></h2>
-		<a href="/author/alexander-mont.html">@Alexander Mont</a>
-		<span> dans </span>
-		<span class="post_category"><a href="/category/selfdrivingcar.html" rel="bookmark" title="Permalink to SelfDrivingCar">[ SelfDrivingCar ]</a></span>
-		<span> le </span>
-		<span class="post_date">Wed 24 February 2016</span>
-	</li>
-</ol>
+<li>
+<p>First, we convert the image to grayscale. This is because the
+    subsequent algorithms to be run on this, such as Canny edge
+    detection, only work on grayscale …</p></li></ol>
+                <a class="readmore" href="/finding-lane-lines-part-1.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
 
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
 
-  </article>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
 
-  <!-- Footer -->
-  <footer>
-    <address id="about" class="vcard body">
-      Blog powered by <a href="http://getpelican.com/">Pelican</a>, 
-      which takes great advantage of <a href="http://python.org">Python</a>.
-      Theme <a href="https://github.com/quack1/notebook/">Notebook</a> by <a href="https://twitter.com/_Quack1">@Quack1</a>.
-    </address>
-  </footer>
-
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
 
 </body>
 </html>

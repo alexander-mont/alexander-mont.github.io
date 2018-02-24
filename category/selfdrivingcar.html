@@ -1,90 +1,227 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!-- Site Meta Data -->
-  <title>Adventures in Silicon Valley - SelfDrivingCar</title>
-  <meta name="description" content="">
-  <meta name="author" content="Alexander Mont">
+        <meta charset="utf-8" />
+        <title>Adventures in Silicon Valley - SelfDrivingCar</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
-  <!-- Style Meta Data -->
-  <link rel="stylesheet" href="/theme/css/notebook.css" type="text/css" />
-  <link rel="shortcut icon" href="/">
-
-  <!-- Feed Meta Data -->
-  <link href="/" type="application/atom+xml" rel="alternate" title="Adventures in Silicon Valley ATOM Feed" />
-
-  <!-- Twitter Feed -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="">
-  <meta name="twitter:image" content="/">
-
-<meta name="twitter:creator" content="">
-<meta name="twitter:url" content="">
-<meta name="twitter:title" content="Adventures in Silicon Valley">
-<meta name="twitter:description" content="">
-
-<!-- Facebook Meta Data -->
-<meta property="og:title" content="Adventures in Silicon Valley" />
-<meta property="og:description" content="" />
-<meta property="og:image" content="" />
-
-<meta name="twitter:creator" content="">
-<meta name="twitter:url" content="/category/selfdrivingcar.html">
-<meta name="twitter:title" content="Adventures in Silicon Valley ~ SelfDrivingCar">
-<meta name="twitter:description" content="Articles de SelfDrivingCar">
-
-<!-- Facebook Meta Data -->
-<meta property="og:title" content="Adventures in Silicon Valley ~ SelfDrivingCar" />
-<meta property="og:description" content="Articles de SelfDrivingCar" />
-<meta property="og:image" content="" />
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
 
-<body>
-  <!-- Sidebar -->
-  <aside>
-    <p><a href=""><img id="avatar" src="/"></a></p>
-    <h1>Adventures in Silicon Valley</h1>
-    <p></p>
-    <hr>
-    <h2>Social</h2>
-    <ul class="social">
-      <li style="list-style-image : url(/theme/images/icons/you can add links in your config file.png);"><a href="#">You can add links in your config file</a></li>
-      <li style="list-style-image : url(/theme/images/icons/another social link.png);"><a href="#">Another social link</a></li>
-      <li style="list-style-image : url(/theme/images/icons/rss.png);"><a href="/" rel="alternate"><i class="icon-bookmark icon-large"></i>Atom feed</a></li>
-    </ul>
-    <h2>Categories</h2>
-    <ul class="navbar">
-      <li class="active"><a href="/category/selfdrivingcar.html">SelfDrivingCar</a></li>
-      <li><a href="/category/test.html">Test</a></li>
-    </ul> 
-  </aside>
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Adventures in Silicon Valley </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/selfdrivingcar.html">SelfDrivingCar</a></li>
+                    <li><a href="/category/test.html">Test</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
 
-  <!-- Content -->
-  <article>
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/finding-lane-lines-part-1.html">Finding Lane Lines, Part 1</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2016-02-24T12:46:00-08:00">
+                Published: Wed 24 February 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/alexander-mont.html">Alexander Mont</a>
+        </address>
+<p>In <a href="/category/selfdrivingcar.html">SelfDrivingCar</a>.</p>
+
+</footer><!-- /.post-info --><h1>Pipeline Overview</h1>
+<p>Here is a simple project for finding the lane lines on a road image. The
+pipeline consisted of the following steps:</p>
 <ol>
-	<li class="post_list"><p class="post_entry">
-		<h2 class="post_title"><a href="/finding-lane-lines-part-1.html" rel="bookmark" title="Permalink to Finding Lane Lines, Part 1">Finding Lane Lines, Part 1</a></h2>
-		<a href="/author/alexander-mont.html">@Alexander Mont</a>
-		<span> dans </span>
-		<span class="post_category"><a href="/category/selfdrivingcar.html" rel="bookmark" title="Permalink to SelfDrivingCar">[ SelfDrivingCar ]</a></span>
-		<span> le </span>
-		<span class="post_date">Wed 24 February 2016</span>
-	</li>
+<li>
+<p>First, we convert the image to grayscale. This is because the
+    subsequent algorithms to be run on this, such as Canny edge
+    detection, only work on grayscale images. Note that we do this by
+    using the OpenCV function <code>cv2.cvtColor(img, cv2.COLOR_RGB2GRAY</code>,
+    which treats all of the three color channels (red, green, blue)
+    equally.</p>
+</li>
+<li>
+<p>Then, we apply Canny edge detection. Canny edge detection works by
+    computing the <em>gradient</em> (difference between adjacent pixels) of the
+    image, and highlights only the places where this gradient is
+    highest - i.e., where there is an edge. Note that this effectively
+    turns a segment of a lane line (a dotted line) into a quadrilateral,
+    and turns a solid lane line into two edges.</p>
+</li>
+<li>
+<p>The output of Canny edge detection is just a pixel bitmap showing
+    which pixels are part of edges. Now we need to turn these pixels
+    into lines. To do this we use the Hough transform, and algorithm
+    which does the following:</p>
+<ol>
+<li>
+<p>Considers the “space of possible lines” defined by $\theta$ (the
+    angle of the line), and $\rho$ (the shortest distance of the
+    line from the origin) - this is referred to as the “Hough
+    space”.</p>
+</li>
+<li>
+<p>Each highlighted point defines a curve in the Hough space
+    representing the possible lines that contain that point.</p>
+</li>
+<li>
+<p>Points in Hough space where lots of the above lines intersect
+    represent lines in the original space (the more Hough curves
+    intersect at that point in Hough space, the longer that line is)</p>
+</li>
 </ol>
+</li>
+<li>
+<p>This process is likely to generate multiple lines for each lane
+    line, so we must now combine these lines into just two lines - one
+    on the left side and one on the right side. We do this as follows:</p>
+<ol>
+<li>
+<p>Divide up the lines into two categories: one with negative slope
+    (on the left) and one with positive slope (on the right). The
+    negative slope is on the left because the X axis goes from left
+    to right, but the Y axis goes from the top dow.</p>
+</li>
+<li>
+<p>In each of these categories, compute the <em>smallest</em> (absolute
+    value of) slope, where slope here is defined as $\frac{x}{y}$ -
+    note that this is different from how slope is usually defined.
+    We do it this way so that a nearly vertical line will not cause
+    numerical issues due to the extremely high slope (and we expect
+    nearly vertical lines to be more frequent than nearly horizontal
+    lines(</p>
+</li>
+<li>
+<p>On each side, we consider only Hough lines with a slope of no
+    more than 0.2 away from this “smallest slope”. The purpose of
+    this is to filter out any lane lines other than the lines that
+    bound the lane the car is in (a lane line multiple lanes over
+    will have a higher slope)</p>
+</li>
+<li>
+<p>We compute the average of the slopes of these lines to get the
+    overall slope of the lane line, and then compute the intercept
+    by fitting a line of the given slope through the endpoints of
+    all the Hough lines.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Then we draw the overall lane lines.</p>
+</li>
+</ol>
+<p>An example of this in action is here:</p>
+<p>It is also possible to use this algorithm to annotate the lane lines in
+a video by applying the above algorithm to each frame in the video. When
+I did this I noticed that the drawn lane lines jumped around a lot from
+frame to frame even though the actual lane lines do not appear to move
+that much. Thus I changed my algorithm in this case to compute the slope
+of each line in a given frame as (0.95 * slope of line from previous
+frame) + (0.05 * observed average slope of the Hough lines as described
+above). Thus this significantly dampens the frame-to-frame vibrations.</p>
+<p>The code to generate this is in <a href="p1.ipynb">a relative link</a>.</p>
+<h1>Discussions and Improvements</h1>
+<p>Here are some of the shortcomings of this algorithm and ways it could be
+improved. I plan to implement these and other improvements in a future
+project.</p>
+<ol>
+<li>
+<p>The slopes of the Hough lines appear to change a lot from frame to
+    frame spuriously. It is likely that this is because the edges
+    obtained by the Canny edge detection are only one pixel wide (all
+    the pixels in the “middle” of the lane line are thrown out) so a
+    change in even a few of these pixels may significantly change the
+    slope. A better approach may be to note that we don’t really care
+    about the <em>edges</em> of the lane line per se (the “lane line” is really
+    a thin quadrilateral) what we care about is the overall lane line.
+    Therefore, a better approach may be to not use Canny edge detection
+    at all. A better approach may be to do the following:</p>
+<ol>
+<li>
+<p>Use thresholding to identify which pixels in the image are
+    likely part of lane lines. for instance, any white or yellow
+    pixels are likely part of lane lines. So the thresholding could
+    be based on just the red and green color channels, since yellow
+    has high red and green but low blue.</p>
+</li>
+<li>
+<p>Use a flood fill or similar algorithm to segment these “likely
+    pixels” into contiguous groups.</p>
+</li>
+<li>
+<p>Try to identify which contiguous groups are lane lines on the
+    road (as opposed to other objects such as white or yellow cars).
+    Note that a lane line or lane line segment is expected to be
+    long and thin. Thus, if one took all the $(x,y)$ coordinates of
+    pixels in a lane line and did PCA on them, one would expect to
+    see one very large principal component and one much smaller
+    principal component. This pattern could be easily identified.</p>
+</li>
+<li>
+<p>Once we have a contiguous group of pixels that represents a lane
+    line, we can fit a line through it (e.g. using a least squares
+    fit) to get the slope and intercept.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>The smoothing technique used between frames in the video works well
+    for the test videos in this project where the car is moving roughly
+    straight, but may not work well in a scenario where the car is
+    changing lanes so the slope of the lane lines actually is changing
+    significantly - it might be slow to catch up. A better solution here
+    may be a Kalman filter which stores as its state both the current
+    slope and a rate of change in slope. Thus if the car was e.g.
+    changing lanes, where the lane line’s slope is smoothly changing,
+    the filter would pick up on this and track it.</p>
+</li>
+<li>
+<p>The identifying of each lane line by a slope and intercept assumes
+    that it is a straight line. This may not be true if the road is
+    curving or if there is a hill in front of the car This is a major
+    flaw because both of these situations are likely to require action
+    by a self-driving car, so the car would want to know about it. A
+    solution here may be to, after the lane line segments on the road
+    have been identified as described above, to use some sort of
+    clustering algorithm to find “clusters” of these line segments in
+    Hough space, and assume that similar clusters represent the same
+    lane lines. This would also mean that the algorithm wouldn’t need to
+    assume that there are two primary lane lines, one on each side - it
+    could detect other things that look like lane lines.</p>
+</li>
+</ol>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
 
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
 
-  </article>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
 
-  <!-- Footer -->
-  <footer>
-    <address id="about" class="vcard body">
-      Blog powered by <a href="http://getpelican.com/">Pelican</a>, 
-      which takes great advantage of <a href="http://python.org">Python</a>.
-      Theme <a href="https://github.com/quack1/notebook/">Notebook</a> by <a href="https://twitter.com/_Quack1">@Quack1</a>.
-    </address>
-  </footer>
-
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
 
 </body>
 </html>
